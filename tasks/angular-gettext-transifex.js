@@ -17,7 +17,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('ng-gettext-transifex-upload', function() {
     if (!isCI()) {
-      grunt.fatal('Not allowed in a non-CI environment. Run with CI=true to override this.');
+      grunt.fatal('Not allowed in a non-CI environment, read https://github.com/eHealthAfrica/grunt-angular-gettext-transifex#workflow. Run with CI=true to override this.');
     }
 
     grunt.task.run('nggettext_extract', 'tx:upload');
