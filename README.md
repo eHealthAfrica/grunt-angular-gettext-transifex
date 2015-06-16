@@ -33,6 +33,43 @@ The plugin exposes two tasks:
 - `grunt ng-gettext-transifex-upload` – extracts the translatable strings and uploads them
 - `grunt ng-gettext-transifex-download` – downloads the translations and compiles them
 
+## Setup for TravisCI
+
+As described our upload workflow is fully automated on [TravisCI](http://travis-ci.org). You need to have the [travis CLI tool](https://github.com/travis-ci/travis) installed and we assume that you have [grunt-angular-gettext](https://github.com/rubenv/grunt-angular-gettext) & [grunt-tx](https://github.com/eHealthAfrica/grunt-tx) properly configured in your project, follow these steps to get the same results as we do:
+
+1. `travis encrypt TRANSIFEX_USER=YOUR_TRANSIFEX_USERNAME --add`
+2. `travis encrypt TRANSIFEX_PASSWORD=YOUR_TRANSIFEX_PASSWORD --add`
+3. Add a script to your repository which goes along the lines of this:
+    ```bash
+    #!/usr/bin/env bash
+    set -e
+
+    # Don't upload if we're in a pull request
+    [[ "$TRAVIS_PULL_REQUEST" == "false" ]] || {
+      exit 0;
+    }
+
+    # Don't upload if we're in a branch
+    [[ "$TRAVIS_BRANCH" == "Your branch, which is probably master" ]] || {
+      exit 0;
+    }
+
+    # Don't upload if we're in a fork
+    [[ "$TRAVIS_REPO_SLUG" == "githubusername/reponame" ]] || {
+      exit 0;
+    }
+
+    grunt ng-gettext-transifex-upload
+    ```
+
+4. Make that script executable `chmod +x ./path/to_script_above.sh`
+5. Add this to your `.travis.yml`
+    ```yaml
+    after_success:
+      - /path/to_script_above.sh
+    ```
+6. Commit everything, push and be happy :)
+
 ## License
 
 Apache 2.0, see [LICENSE](/LICENSE)
