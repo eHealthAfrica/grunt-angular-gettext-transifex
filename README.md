@@ -70,6 +70,10 @@ As described our upload workflow is fully automated on [TravisCI](http://travis-
     ```
 6. Commit everything, push and be happy :)
 
+## Example project
+
+Have a look at [eHealthAfrica/move](github.com/eHealthAfrica/move) to see an example of our projects using it.
+
 ## License
 
 Apache 2.0, see [LICENSE](/LICENSE)
