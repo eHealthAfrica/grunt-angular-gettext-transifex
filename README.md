@@ -19,7 +19,7 @@ Honestly I'm not really sure if this is useful for any project outside of our se
 
 ## Getting started
 
-In your project run: `npm install --save grunt-angular-gettext-transifex`.
+In your project run: `npm install --save-dev grunt-angular-gettext-transifex`.
 
 Then go to your `Gruntfile.js`, include this plugin and add the configuration. Example:
 
