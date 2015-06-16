@@ -17,9 +17,11 @@
   },
   "scripts": {
     "prepublish": "semantic-release pre",
-    "postpublish": "semantic-release post"
+    "postpublish": "semantic-release post",
+    "test": "grunt eslint"
   },
   "devDependencies": {
+    "grunt-eslint": "^15.0.0",
     "semantic-release": "^3.3.2"
   },
   "keywords": [

@@ -1,16 +1,17 @@
 'use strict';
 
+var path = require('path');
 var isCI = function() {
   return ['CI', 'TRAVIS', 'CONTINUOUS_INTEGRATION'].filter(function(variable) {
     return process.env[variable] === 'true';
   }).length > 0;
-}
+};
 
 module.exports = function(grunt) {
   // we need to jump this hoop so we can load our dependencies
   // and use their tasks
   var cwd = process.cwd();
-  process.chdir(__dirname + '/..');
+  process.chdir(path.join(__dirname, '..'));
   grunt.loadNpmTasks('grunt-tx');
   grunt.loadNpmTasks('grunt-angular-gettext');
   process.chdir(cwd);
@@ -27,4 +28,4 @@ module.exports = function(grunt) {
     'tx:download',
     'nggettext_compile'
   ]);
-}
+};
