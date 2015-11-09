@@ -1,12 +1,11 @@
 {
   "name": "grunt-angular-gettext-transifex",
   "description": "Grunt tasks to extract translatable strings from Angular apps and upload them to Transifex and download translations and compile them",
-  "version": "0.0.0-semantically-released",
   "homepage": "https://github.com/eHealthAfrica/grunt-angular-gettext-transifex",
   "author": "Robin Mehner <robin@coding-robin.de> (http://coding-robin.de)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/eHealthAfrica/grunt-angular-gettext-transifex.git"
+    "url": "https://github.com/eHealthAfrica/grunt-angular-gettext-transifex.git"
   },
   "bugs": {
     "url": "https://github.com/eHealthAfrica/grunt-angular-gettext-transifex/issues"
@@ -18,11 +17,12 @@
   "scripts": {
     "prepublish": "semantic-release pre",
     "postpublish": "semantic-release post",
-    "test": "grunt eslint"
+    "test": "grunt eslint",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "devDependencies": {
     "grunt-eslint": "^15.0.0",
-    "semantic-release": "^3.3.2"
+    "semantic-release": "^4.3.5"
   },
   "keywords": [
     "grunt",

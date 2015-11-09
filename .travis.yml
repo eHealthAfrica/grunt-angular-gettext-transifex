@@ -2,25 +2,36 @@ language: node_js
 sudo: false
 addons:
   apt:
+    sources:
+      - ubuntu-toolchain-r-test
     packages:
       - libgnome-keyring-dev
-cache:
-  directories:
-    - node_modules
-before_install:
-  - npm i -g npm@^2.0.0
-  - npm config set spin false --global
-before_script:
-- npm prune
-deploy:
-  provider: npm
-  email: oss@ehealthafrica.org
-  skip_cleanup: true
-  on:
-    branch: master
-    repo: eHealthAfrica/grunt-angular-gettext-transifex
-  api_key:
-    secure: YJ56mu05YtjaDCtJ3lwB82edscQVHH4PhCWviDYmOHC2IDO9sdskkK3+rXCOcq3RLcm6gGoGRls0PmR8rEItRr1giXRhsgeuCJUTqdxg2ckW4PZliH2Kt2G9X68RYjBA6Ei8yP+jo2rJqdvuv3ETReS1m3KVkgFySvPjZKwqhf8UhqLxFpQFRLAgzLRlKnwo1zYuK8AI7h7Xr77QEo1X2MURIREI94/AdKiEMMuCRXm/eAtW+HeogI2c6Cy76rKPZFPncLo9dHUoifcBm2vPmvtYpGAOGPSpLtO/phYuwnUtJ7fNuVJ0zwbhay7xC0lBMlVYj8n70B6ZgjVgZS6DmGEDebuoTDPDGSLh4SATQd+V0xA98bfm7MHtlHflJt4aJJB8GSBMheHsRiS7V1WvJJlAvhOmJWLgMfgh3b7VkEieex+Z5JaD9nbQWmZtn3+i4lv7VAb7xwPXZZOQZYez6fcRNKk6vpcJlJPW5F1fcqQc6WzJYFJ7eVnSoJTobAy+qWoGKn9ji8D4Ae3Ceo3HcJlVepk9VE2h10DNyeomPB4tGHSy0esle4ecz5/hh//dBeO8EOkES8h/VgHCeAGBhLV4BNhaCkCwkCtR1qj/GzCL/cdiulDY8NLsvR5rra5su2//HpQNE7E+uFbmUay5WZJU07378+sDRjvMS1omC24=
+      - g++-4.8
+node_js:
+  - '0.10'
+  - '0.12'
+  - iojs-v3
+  - iojs-v2
+  - iojs-v1
+  - '4.0'
+  - '4.1'
+  - '4.2'
+  - '5.0'
 env:
   global:
-  - secure: Ua0KePf9kpOIVoweTbDZMi2b8ECudTNUXRhgoKTpUT1XyiLP5cJbFksUYlFKMTyWeuqUZ7JGqZfSHMYddqgVh2e2wOtrX97BM/HHwK+c+eZogD/JBavmC23AbunjTkmLl+Z6HrA8NziH3jaRklJTxsCRlckl+/WixLdC4sLsIdFzN3yLhDbpaxWU5e1zx7Cu5lchR8R8fhKzgnMDH3rIvH64S0/lTeaxdl+k7Af2pBtw9G3yeL1PL6XBM2mkVWDrnF0idWJ2CvKiTI2Iy1EZn/Fe0XP5GjyhjQjIlAFEEsZ5Jk39qQ0pC+eOpuwD6K3uWDvEP9/ZZBaEcdgjBevmtt+D9+WNb9vbNhuooDJz2wXv+kvSXhDuCTnpEOU9hMJLME583fCNToZJU6Cr/teLECsxDnkK7ZYw218URD3zYpmnqKDYZeIKlXKkKneH7ftjZwrFUyy5Kam9NhJY8H8RwIKxiKp3f9bP7Is0oYWZHZIde8V083r4gpjMtSaKDL681OrxfMd3VZJrysGxcGoOhAlXmyDEbYmUs/l5yHVO1nSxOagP8bUG97lg3NE/EW1hF7z34HiTOhIbqP4aNX3RsYTAYazKey702qIn9AxccvqokVydXI3pfFwHczRvScLNBHRXWAiILsHC+c9xwJdfmeGIdyJqhAepYNFIThKpJ6Y=
+    - CXX=g++-4.8
+before_install:
+  - npm i -g npm@^3.0.0
+  - npm i -g node-gyp-install
+  - node-gyp-install
+  - npm config set spin false --global
+before_script:
+  - npm prune
+after_success:
+  - 'curl -Lo travis_after_all.py https://git.io/travis_after_all'
+  - python travis_after_all.py
+  - 'export $(cat .to_export_back) &> /dev/null'
+  - npm run semantic-release
+branches:
+  except:
+    - "/^v\\d+\\.\\d+\\.\\d+$/"
