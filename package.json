@@ -19,7 +19,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "devDependencies": {
-    "grunt-cli": "^0.1.13",
+    "grunt-cli": "^1.0.0",
     "grunt-eslint": "^18.0.0",
     "semantic-release": "^4.3.5"
   },
